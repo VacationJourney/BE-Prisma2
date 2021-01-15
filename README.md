@@ -23,15 +23,15 @@ As a Traveler, I find that travel decisions are based upon finances.<br />
 Help a client make vacation decisions based on finances, organize itinerary, and add subscriptions for followers.
 
 ### Tech Stack
-- Prisma
-- Docker-Compose
+- Prisma2
+- Auth0
 - PostgreSQL
 - GraphQL
 - Apollo-server
 - JsonWebToken
-- Bcryptjs
+- Heroku
 - Jest
-- Env-cmd
+
 
 
 ### Environments
