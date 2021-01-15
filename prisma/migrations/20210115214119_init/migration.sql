@@ -39,6 +39,7 @@ CREATE TABLE "Event" (
     "cost" INTEGER,
     "description" TEXT,
     "dayId" TEXT,
+    "vacationId" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -54,3 +55,6 @@ ALTER TABLE "Day" ADD FOREIGN KEY("vacationId")REFERENCES "Vacation"("id") ON DE
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD FOREIGN KEY("dayId")REFERENCES "Day"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Event" ADD FOREIGN KEY("vacationId")REFERENCES "Vacation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
