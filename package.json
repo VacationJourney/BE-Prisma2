@@ -27,6 +27,8 @@
     "@prisma/client": "^2.14.0",
     "apollo-server": "^2.19.1",
     "dotenv": "^8.2.0",
-    "graphql": "^15.4.0"
+    "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.12.2"
   }
 }
