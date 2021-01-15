@@ -47,4 +47,6 @@ model Event {
   description String?
   Day         Day?    @relation(fields: [dayId], references: [id])
   dayId       String?
+  Vacation   Vacation? @relation(fields: [vacationId], references: [id])
+  vacationId String?
 }
