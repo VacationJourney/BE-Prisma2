@@ -6,13 +6,13 @@ const User = {
 
 const Vacation = {
   dates(parent, args, { prisma }) {
-    return prisma.vacation.findUnique({where: {id: parent.id}}).dates();
+    return prisma.vacation.findUnique({where: {id: parent.id}}).dates({orderBy: {date : 'asc'}});
   },
 }
 
 const Day = {
   events(parent, args, { prisma }) {
-    return prisma.day.findUnique({where: {id: parent.id} }).events();
+    return prisma.day.findUnique({where: {id: parent.id} }).events({orderBy: {startTime: 'asc'}});
   },
 }
 
