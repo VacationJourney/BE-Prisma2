@@ -1,0 +1,32 @@
+{
+  "name": "BE-Prisma2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VacationJourney/BE-Prisma2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VacationJourney/BE-Prisma2/issues"
+  },
+  "homepage": "https://github.com/VacationJourney/BE-Prisma2#readme",
+  "devDependencies": {
+    "@prisma/cli": "^2.14.0",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.14.0",
+    "apollo-server": "^2.19.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0"
+  }
+}
