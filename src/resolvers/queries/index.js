@@ -1,9 +1,6 @@
-
-
 const Query = {
   
   vacations: async (__, args, { req, prisma }) => {
-    // const { id }= decodeToken(req);
     const { where: { id } } = args
     return await prisma.user.findUnique({where: {id}}).vacations();
   },
