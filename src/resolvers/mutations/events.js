@@ -2,11 +2,11 @@
 const createEvent = async (parent, args, { prisma }, info) => {
   // Create Event
   // args & variables
-  const {data: {title, startTime, endTime, location, contact, cost, description, date, tripId}} = args
+  const {data: {title, startTime, endTime, location, contact, cost, description, date, tripId, trip}} = args
   const id = date.connect.id
   
   const event = await prisma.event.create({data: {
-    title, startTime, endTime, location, contact, cost, description, Day: date
+    title, startTime, endTime, location, contact, cost, description, Day: date, Vacation: trip
   }});
   // Promise for update day cost
   const dayEvents = await prisma.day.findUnique({where: { id } }).events()
@@ -46,7 +46,7 @@ const updateEvent = async (parent, args, { prisma }, info) => {
   });
   // Promise for update day cost
   const dayEvents = await prisma.day.findUnique({where: { id: dateId }}).events()
-  console.log('dayEvents', dayEvents)
+  
   const newDayCost = dayEvents.map(event => event.cost).reduce((total, value) => total - value, 0)
   await prisma.day.update({
     data: {

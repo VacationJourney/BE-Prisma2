@@ -23,6 +23,8 @@ const updateVacation = async (parent, args, { prisma }) => {
 }
 
 const deleteVacation = async (parent, {id}, { prisma }, info) => {
+ 
+  await prisma.event.deleteMany({where:  {vacationId: id}})
   await prisma.day.deleteMany({where:  {vacationId: id}})
   return prisma.vacation.delete({where: {id}});
 }

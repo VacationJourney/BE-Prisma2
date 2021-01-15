@@ -278,6 +278,8 @@ type Event {
   contact: String
   cost: Int
   description: String
+  trip: Vacation
+  tripId: String
 }
 
 type EventConnection {
@@ -296,6 +298,7 @@ input EventCreateInput {
   contact: String
   cost: Int
   description: String
+  trip: VacationCreateOneWithoutDatesInput
   tripId: ID
 }
 
