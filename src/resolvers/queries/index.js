@@ -1,5 +1,8 @@
 const Query = {
-  
+  user: async (__, args, { req, prisma }) => {
+    const { where: { id } } = args
+    return await prisma.user.findUnique({where: {id}})
+  },
   vacations: async (__, args, { req, prisma }) => {
     const { where: { id } } = args
     return await prisma.user.findUnique({where: {id}}).vacations();
