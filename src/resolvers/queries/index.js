@@ -19,6 +19,10 @@ const Query = {
     const {where: {id}} = args
     return prisma.event({where: {id}});
   },
+  note: (parent, args, { prisma }) => {
+    const {where: {id}} = args
+    return prisma.note({where: {id}});
+  }
 }
 
 module.exports = Query
