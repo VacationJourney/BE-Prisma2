@@ -15,7 +15,7 @@ const Day = {
     return prisma.day.findUnique({where: {id: parent.id} }).events({orderBy: {startTime: 'asc'}});
   },
   notes: (parent, args, { prisma }) => {
-    return prisma.day.findUnique({where: {id: parent.id} }).notes();
+    return prisma.day.findUnique({where: {id: parent.id} }).Note();
   }
 }
 
