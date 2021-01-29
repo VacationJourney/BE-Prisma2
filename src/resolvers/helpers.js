@@ -11,10 +11,14 @@ const Vacation = {
 }
 
 const Day = {
-  events(parent, args, { prisma }) {
+  events: (parent, args, { prisma }) => {
     return prisma.day.findUnique({where: {id: parent.id} }).events({orderBy: {startTime: 'asc'}});
   },
+  notes: (parent, args, { prisma }) => {
+    return prisma.day.findUnique({where: {id: parent.id} }).notes();
+  }
 }
+
 
 const Event = {
   date(parent, args, { prisma }) {
@@ -22,6 +26,8 @@ const Event = {
     return prisma.event.findUnique({where: {id: parent.id}});
   },
 }
+
+
 
 
 const Node  = {
