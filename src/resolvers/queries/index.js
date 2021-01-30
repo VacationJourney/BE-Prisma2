@@ -17,8 +17,12 @@ const Query = {
   },
   event: (parent, args, { prisma }) => {
     const {where: {id}} = args
-    return prisma.event({where: {id}});
+    return prisma.event.findUnique({where: {id}});
   },
+  note: (parent, args, { prisma }) => {
+    const {where: {id}} = args
+    return prisma.note.findUnique({where: {id}});
+  }
 }
 
 module.exports = Query

@@ -9,10 +9,6 @@ type AggregateEvent {
   count: Int!
 }
 
-type AggregateNote {
-  count: Int!
-}
-
 type AggregateUser {
   count: Int!
 }
@@ -30,7 +26,6 @@ type Day {
   date: String!
   cost: Int
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
-  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
   trip: Vacation
 }
 
@@ -45,7 +40,6 @@ input DayCreateInput {
   date: String!
   cost: Int
   events: EventCreateManyWithoutDateInput
-  notes: NoteCreateManyWithoutDateInput
   trip: VacationCreateOneWithoutDatesInput
 }
 
@@ -59,24 +53,10 @@ input DayCreateOneWithoutEventsInput {
   connect: DayWhereUniqueInput
 }
 
-input DayCreateOneWithoutNotesInput {
-  create: DayCreateWithoutNotesInput
-  connect: DayWhereUniqueInput
-}
-
 input DayCreateWithoutEventsInput {
   id: ID
   date: String!
   cost: Int
-  notes: NoteCreateManyWithoutDateInput
-  trip: VacationCreateOneWithoutDatesInput
-}
-
-input DayCreateWithoutNotesInput {
-  id: ID
-  date: String!
-  cost: Int
-  events: EventCreateManyWithoutDateInput
   trip: VacationCreateOneWithoutDatesInput
 }
 
@@ -85,7 +65,6 @@ input DayCreateWithoutTripInput {
   date: String!
   cost: Int
   events: EventCreateManyWithoutDateInput
-  notes: NoteCreateManyWithoutDateInput
 }
 
 type DayEdge {
@@ -172,7 +151,6 @@ input DayUpdateInput {
   date: String
   cost: Int
   events: EventUpdateManyWithoutDateInput
-  notes: NoteUpdateManyWithoutDateInput
   trip: VacationUpdateOneWithoutDatesInput
 }
 
@@ -212,26 +190,9 @@ input DayUpdateOneWithoutEventsInput {
   connect: DayWhereUniqueInput
 }
 
-input DayUpdateOneWithoutNotesInput {
-  create: DayCreateWithoutNotesInput
-  update: DayUpdateWithoutNotesDataInput
-  upsert: DayUpsertWithoutNotesInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: DayWhereUniqueInput
-}
-
 input DayUpdateWithoutEventsDataInput {
   date: String
   cost: Int
-  notes: NoteUpdateManyWithoutDateInput
-  trip: VacationUpdateOneWithoutDatesInput
-}
-
-input DayUpdateWithoutNotesDataInput {
-  date: String
-  cost: Int
-  events: EventUpdateManyWithoutDateInput
   trip: VacationUpdateOneWithoutDatesInput
 }
 
@@ -239,7 +200,6 @@ input DayUpdateWithoutTripDataInput {
   date: String
   cost: Int
   events: EventUpdateManyWithoutDateInput
-  notes: NoteUpdateManyWithoutDateInput
 }
 
 input DayUpdateWithWhereUniqueWithoutTripInput {
@@ -250,11 +210,6 @@ input DayUpdateWithWhereUniqueWithoutTripInput {
 input DayUpsertWithoutEventsInput {
   update: DayUpdateWithoutEventsDataInput!
   create: DayCreateWithoutEventsInput!
-}
-
-input DayUpsertWithoutNotesInput {
-  update: DayUpdateWithoutNotesDataInput!
-  create: DayCreateWithoutNotesInput!
 }
 
 input DayUpsertWithWhereUniqueWithoutTripInput {
@@ -303,9 +258,6 @@ input DayWhereInput {
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput
-  notes_every: NoteWhereInput
-  notes_some: NoteWhereInput
-  notes_none: NoteWhereInput
   trip: VacationWhereInput
   AND: [DayWhereInput!]
   OR: [DayWhereInput!]
@@ -734,12 +686,6 @@ type Mutation {
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   # deleteEvent(where: EventWhereUniqueInput!): Event
   deleteManyEvents(where: EventWhereInput): BatchPayload!
-  createNote(data: NoteCreateInput!): Note!
-  updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
-  updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
-  upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
-  deleteNote(where: NoteWhereUniqueInput!): Note
-  deleteManyNotes(where: NoteWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   # updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -775,227 +721,6 @@ interface Node {
   id: ID!
 }
 
-type Note {
-  id: ID!
-  title: String!
-  idea: String
-  date: Day
-  trip: Vacation
-}
-
-type NoteConnection {
-  pageInfo: PageInfo!
-  edges: [NoteEdge]!
-  aggregate: AggregateNote!
-}
-
-input NoteCreateInput {
-  id: ID
-  title: String!
-  idea: String
-  date: DayCreateOneWithoutNotesInput
-  trip: VacationCreateOneWithoutDatesInput
-}
-
-input NoteCreateManyWithoutDateInput {
-  create: [NoteCreateWithoutDateInput!]
-  connect: [NoteWhereUniqueInput!]
-}
-
-input NoteCreateWithoutDateInput {
-  id: ID
-  title: String!
-  idea: String
-}
-
-type NoteEdge {
-  node: Note!
-  cursor: String!
-}
-
-enum NoteOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  idea_ASC
-  idea_DESC
-}
-
-type NotePreviousValues {
-  id: ID!
-  title: String!
-  idea: String
-}
-
-input NoteScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  idea: String
-  idea_not: String
-  idea_in: [String!]
-  idea_not_in: [String!]
-  idea_lt: String
-  idea_lte: String
-  idea_gt: String
-  idea_gte: String
-  idea_contains: String
-  idea_not_contains: String
-  idea_starts_with: String
-  idea_not_starts_with: String
-  idea_ends_with: String
-  idea_not_ends_with: String
-  AND: [NoteScalarWhereInput!]
-  OR: [NoteScalarWhereInput!]
-  NOT: [NoteScalarWhereInput!]
-}
-
-type NoteSubscriptionPayload {
-  mutation: MutationType!
-  node: Note
-  updatedFields: [String!]
-  previousValues: NotePreviousValues
-}
-
-input NoteSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: NoteWhereInput
-  AND: [NoteSubscriptionWhereInput!]
-  OR: [NoteSubscriptionWhereInput!]
-  NOT: [NoteSubscriptionWhereInput!]
-}
-
-input NoteUpdateInput {
-  title: String
-  idea: String
-  date: DayUpdateOneWithoutNotesInput
-}
-
-input NoteUpdateManyDataInput {
-  title: String
-  idea: String
-}
-
-input NoteUpdateManyMutationInput {
-  title: String
-  idea: String
-}
-
-input NoteUpdateManyWithoutDateInput {
-  create: [NoteCreateWithoutDateInput!]
-  delete: [NoteWhereUniqueInput!]
-  connect: [NoteWhereUniqueInput!]
-  set: [NoteWhereUniqueInput!]
-  disconnect: [NoteWhereUniqueInput!]
-  update: [NoteUpdateWithWhereUniqueWithoutDateInput!]
-  upsert: [NoteUpsertWithWhereUniqueWithoutDateInput!]
-  deleteMany: [NoteScalarWhereInput!]
-  updateMany: [NoteUpdateManyWithWhereNestedInput!]
-}
-
-input NoteUpdateManyWithWhereNestedInput {
-  where: NoteScalarWhereInput!
-  data: NoteUpdateManyDataInput!
-}
-
-input NoteUpdateWithoutDateDataInput {
-  title: String
-  idea: String
-}
-
-input NoteUpdateWithWhereUniqueWithoutDateInput {
-  where: NoteWhereUniqueInput!
-  data: NoteUpdateWithoutDateDataInput!
-}
-
-input NoteUpsertWithWhereUniqueWithoutDateInput {
-  where: NoteWhereUniqueInput!
-  update: NoteUpdateWithoutDateDataInput!
-  create: NoteCreateWithoutDateInput!
-}
-
-input NoteWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  idea: String
-  idea_not: String
-  idea_in: [String!]
-  idea_not_in: [String!]
-  idea_lt: String
-  idea_lte: String
-  idea_gt: String
-  idea_gte: String
-  idea_contains: String
-  idea_not_contains: String
-  idea_starts_with: String
-  idea_not_starts_with: String
-  idea_ends_with: String
-  idea_not_ends_with: String
-  date: DayWhereInput
-  AND: [NoteWhereInput!]
-  OR: [NoteWhereInput!]
-  NOT: [NoteWhereInput!]
-}
-
-input NoteWhereUniqueInput {
-  id: ID
-}
-
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -1010,9 +735,6 @@ type Query {
   event(where: EventWhereUniqueInput!): Event
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
-  note(where: NoteWhereUniqueInput!): Note
-  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
-  notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1025,7 +747,6 @@ type Query {
 type Subscription {
   day(where: DaySubscriptionWhereInput): DaySubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
-  note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   vacation(where: VacationSubscriptionWhereInput): VacationSubscriptionPayload
 }
@@ -1500,6 +1221,8 @@ input VacationWhereUniqueInput {
   id: ID
 }
 
-`
 
+
+
+`
 module.exports = typeDefs;

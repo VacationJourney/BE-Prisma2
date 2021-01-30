@@ -179,6 +179,41 @@ export const DELETE_EVENT = gql`
 	}
 `;
 
+export const CREATE_NOTE = gql`
+  mutation createNote($title: String!, $idea: String, $date: ID, $vacation: ID) {
+    createNote(
+      data: {
+        title: $title
+        idea: $idea
+        trip: { connect: { id: $vacation } }
+        date: { connect: { id: $date } }
+      }
+    ) {
+      id
+      title
+      idea
+    }
+  }
+`
+export const UPDATE_NOTE = gql`
+  mutation updateNote($title: String, $idea: String, $id: ID) {
+    updateNote(data: { title: $title, idea: $idea }, where: { id: $id }) {
+      id
+      title
+      idea
+    }
+  }
+`
+export const DELETE_NOTE = gql`
+  mutation deleteNote($id: ID!) {
+    deleteNote(where: { id: $id }) {
+      id
+      title
+      idea
+    }
+  }
+`
+
 // Queries
 
 export const GET_ONE_USER = gql`
@@ -206,16 +241,31 @@ export const GET_ONE_USER = gql`
 `
 
 export const GET_ONE_TRIP = gql`
-  query vacation($id: ID!){
-    vacation(where: {id: $id}){
+  query Vacation($id: ID) {
+    vacation(where: { id: $id }) {
       id
       title
-      dates{
+      budget
+      cost
+      dreams
+      dates {
         id
         date
-        events{
+        events(orderBy: startTime_ASC) {
           id
           title
+          startTime
+          endTime
+          location
+          contact
+          description
+          cost
+          tripId
+        }
+        notes{
+          id
+          title
+          idea
         }
       }
     }
@@ -262,7 +312,7 @@ export const GET_ONE_DATE = gql`
 `;
 
 export const GET_ONE_EVENT = gql`
-  query Event($id: ID) {
+  query event($id: ID) {
     event(where: { id: $id }) {
       id
       title
@@ -275,3 +325,13 @@ export const GET_ONE_EVENT = gql`
     }
   }
 `;
+
+export const GET_ONE_NOTE = gql`
+  query note($id: ID){
+    note(where: {id: $id}){
+      id
+      title
+      idea
+    }
+  }
+`
