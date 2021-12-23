@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  username  String?
+  vacations Vacation[]
+}
+
+model Vacation {
+  id         String  @id @default(cuid())
+  title      String
+  budget     Int?
+  cost       Int?
+  dates      Day[]
+  traveler   User?   @relation(fields: [travelerId], references: [id])
+  travelerId String?
+  Event      Event[]
+  Note       Note[]
+}
+
+model Day {
+  id         String    @id @default(cuid())
+  date       String
+  cost       Int?
+  events     Event[]
+  Vacation   Vacation? @relation(fields: [vacationId], references: [id])
+  vacationId String?
+  Note       Note[]
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  startTime   String?
+  endTime     String?
+  location    String?
+  contact     String?
+  cost        Int?
+  description String?
+  Day         Day?      @relation(fields: [dayId], references: [id])
+  dayId       String?
+  Vacation    Vacation? @relation(fields: [vacationId], references: [id])
+  vacationId  String?
+}
+
+model Note {
+  id         String    @id @default(cuid())
+  title      String
+  idea       String?
+  Day        Day?      @relation(fields: [dayId], references: [id])
+  dayId      String?
+  Vacation   Vacation? @relation(fields: [vacationId], references: [id])
+  vacationId String?
+}

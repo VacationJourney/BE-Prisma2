@@ -1,0 +1,50 @@
+{
+  "name": "BE-Prisma2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "env-cmd -f ./config/test.env jest --runInBand --detectOpenHandles",
+    "dev": "env-cmd -f ./config/dev.env nodemon --exec babel-node index.js"
+  },
+  "jest": {
+    "globalSetup": "./tests/config/globalSetup.js",
+    "globalTeardown": "./tests/config/globalTeardown.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VacationJourney/BE-Prisma2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VacationJourney/BE-Prisma2/issues"
+  },
+  "homepage": "https://github.com/VacationJourney/BE-Prisma2#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/plugin-transform-spread": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "@prisma/cli": "^2.14.0",
+    "apollo-boost": "^0.4.9",
+    "cross-fetch": "^3.0.6",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.14.0",
+    "apollo-server": "^2.19.1",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
+    "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.12.2"
+  }
+}
